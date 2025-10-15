@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطط الاشتراك - طبخة</title>
+    <meta name="description" content="اختاري خطة الاشتراك المثالية لاحتياجاتك مع طبخة. خطط مرنة بأسعار تنافسية وخصومات حتى 32%">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'warm-beige': '#F5F1E8',
+                        'olive-green': '#8B9A7A',
+                        'warm-orange': '#E8A87C',
+                        'text-dark': '#2C2C2C'
+                    },
+                    fontFamily: {
+                        'arabic': ['Cairo', 'sans-serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #F5F1E8;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #E8A87C, #8B9A7A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .pricing-breakdown {
+            background: linear-gradient(135deg, #F5F1E8 0%, #E8A87C 100%);
+        }
+    </style>
+</head>
+<body class="bg-warm-beige text-text-dark">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-gradient">طبخة</div>
+                    <span class="text-sm text-gray-600 mr-2 hidden sm:block">| وجبات منزلية</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-warm-orange transition-colors">الرئيسية</a>
+                    <a href="subscriptions.html" class="text-warm-orange font-medium border-b-2 border-warm-orange pb-1">الاشتراكات</a>
+                    <a href="chefs.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات</a>
+                    <a href="index.html#contact" class="text-gray-700 hover:text-warm-orange transition-colors">تواصل معنا</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-warm-orange">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.html" class="text-gray-700 hover:text-warm-orange transition-colors">الرئيسية</a>
+                    <a href="subscriptions.html" class="text-warm-orange font-medium">الاشتراكات</a>
+                    <a href="chefs.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات</a>
+                    <a href="index.html#contact" class="text-gray-700 hover:text-warm-orange transition-colors">تواصل معنا</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-24 pb-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center animate-on-scroll">
+                <h1 class="text-4xl md:text-5xl font-bold text-text-dark mb-4">اختري خطة الاشتراك المثالية</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    خطط مرنة تناسب جميع الاحتياجات والميزانيات. وفري أكثر مع الاشتراكات الطويلة واستمتعي بخصومات حتى 32%
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Plan Builder -->
+    <section class="py-16 bg-warm-beige">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Plan Customization -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-xl p-8 shadow-lg animate-on-scroll">
+                        <h2 class="text-2xl font-bold text-text-dark mb-6">خصصي اشتراكك</h2>
+                        
+                        <!-- Frequency Selection -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-text-dark mb-4">تكرار الوجبات</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <label class="plan-frequency-option cursor-pointer">
+                                    <input type="radio" name="frequency" value="daily" class="sr-only">
+                                    <div class="p-4 border-2 border-gray-200 rounded-lg hover:border-warm-orange transition-colors">
+                                        <div class="text-center">
+                                            <div class="text-2xl mb-2">📅</div>
+                                            <div class="font-medium">يومي</div>
+                                            <div class="text-sm text-gray-600">كل يوم</div>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="plan-frequency-option cursor-pointer">
+                                    <input type="radio" name="frequency" value="weekly" class="sr-only" checked>
+                                    <div class="p-4 border-2 border-warm-orange rounded-lg bg-orange-50">
+                                        <div class="text-center">
+                                            <div class="text-2xl mb-2">📊</div>
+                                            <div class="font-medium">أسبوعي</div>
+                                            <div class="text-sm text-gray-600">مرة في الأسبوع</div>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="plan-frequency-option cursor-pointer">
+                                    <input type="radio" name="frequency" value="monthly" class="sr-only">
+                                    <div class="p-4 border-2 border-gray-200 rounded-lg hover:border-warm-orange transition-colors">
+                                        <div class="text-center">
+                                            <div class="text-2xl mb-2">📈</div>
+                                            <div class="font-medium">شهري</div>
+                                            <div class="text-sm text-gray-600">مرة في الشهر</div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Meals Per Day -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-text-dark mb-4">عدد الوجبات</h3>
+                            <div class="flex items-center space-x-4">
+                                <button onclick="adjustMeals(-1)" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors">-</button>
+                                <div class="flex-1 mx-4">
+                                    <div class="text-center">
+                                        <span id="meals-count" class="text-2xl font-bold text-warm-orange">1</span>
+                                        <span class="text-gray-600 block">وجبة في اليوم</span>
+                                    </div>
+                                    <input type="range" id="meals-slider" min="1" max="3" value="1" class="w-full mt-2" onchange="updateMealsCount(this.value)">
+                                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                        <span>غداء فقط</span>
+                                        <span>غداء + عشاء</span>
+                                        <span>3 وجبات</span>
+                                    </div>
+                                </div>
+                                <button onclick="adjustMeals(1)" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors">+</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Portion Size -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-text-dark mb-4">حجم الوجبة</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <label class="portion-size-option cursor-pointer">
+                                    <input type="radio" name="portion" value="small" class="sr-only">
+                                    <div class="p-4 border-2 border-gray-200 rounded-lg hover:border-warm-orange transition-colors">
+                                        <div class="text-center">
+                                            <div class="text-2xl mb-2">🍽️</div>
+                                            <div class="font-medium">صغيرة</div>
+                                            <div class="text-sm text-gray-600">1-2 أشخاص</div>
+                                            <div class="text-xs text-green-600 mt-1">-20% من السعر</div>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="portion-size-option cursor-pointer">
+                                    <input type="radio" name="portion" value="regular" class="sr-only" checked>
+                                    <div class="p-4 border-2 border-warm-orange rounded-lg bg-orange-50">
+                                        <div class="text-center">
+                                            <div class="text-2xl mb-2">🍽️</div>
+                                            <div class="font-medium">معتدلة</div>
+                                            <div class="text-sm text-gray-600">2-3 أشخاص</div>
+                                            <div class="text-xs text-gray-600 mt-1">السعر الأساسي</div>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="portion-size-option cursor-pointer">
+                                    <input type="radio" name="portion" value="large" class="sr-only">
+                                    <div class="p-4 border-2 border-gray-200 rounded-lg hover:border-warm-orange transition-colors">
+                                        <div class="text-center">
+                                            <div class="text-2xl mb-2">🍽️</div>
+                                            <div class="font-medium">كبيرة</div>
+                                            <div class="text-sm text-gray-600">3-4 أشخاص</div>
+                                            <div class="text-xs text-orange-600 mt-1">+30% للسعر</div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Dietary Preferences -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-text-dark mb-4">التفضيلات الغذائية</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <label class="dietary-option cursor-pointer">
+                                    <input type="checkbox" name="dietary" value="vegetarian" class="sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-lg text-center hover:border-warm-orange transition-colors">
+                                        <div class="text-xl mb-1">🥗</div>
+                                        <div class="text-sm font-medium">نباتي</div>
+                                    </div>
+                                </label>
+                                <label class="dietary-option cursor-pointer">
+                                    <input type="checkbox" name="dietary" value="gluten-free" class="sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-lg text-center hover:border-warm-orange transition-colors">
+                                        <div class="text-xl mb-1">🌾</div>
+                                        <div class="text-sm font-medium">خالي من الغلوتين</div>
+                                    </div>
+                                </label>
+                                <label class="dietary-option cursor-pointer">
+                                    <input type="checkbox" name="dietary" value="low-sodium" class="sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-lg text-center hover:border-warm-orange transition-colors">
+                                        <div class="text-xl mb-1">🧂</div>
+                                        <div class="text-sm font-medium">منخفض الصوديوم</div>
+                                    </div>
+                                </label>
+                                <label class="dietary-option cursor-pointer">
+                                    <input type="checkbox" name="dietary" value="dairy-free" class="sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-lg text-center hover:border-warm-orange transition-colors">
+                                        <div class="text-xl mb-1">🥛</div>
+                                        <div class="text-sm font-medium">خالي من الألبان</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Delivery Time -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-text-dark mb-4">وقت التوصيل المفضل</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <label class="delivery-time-option cursor-pointer">
+                                    <input type="radio" name="delivery" value="morning" class="sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-lg text-center hover:border-warm-orange transition-colors">
+                                        <div class="text-xl mb-1">🌅</div>
+                                        <div class="text-sm font-medium">صباحاً</div>
+                                        <div class="text-xs text-gray-600">6-10 ص</div>
+                                    </div>
+                                </label>
+                                <label class="delivery-time-option cursor-pointer">
+                                    <input type="radio" name="delivery" value="lunch" class="sr-only" checked>
+                                    <div class="p-3 border-2 border-warm-orange rounded-lg bg-orange-50 text-center">
+                                        <div class="text-xl mb-1">☀️</div>
+                                        <div class="text-sm font-medium">ظهراً</div>
+                                        <div class="text-xs text-gray-600">11-3 م</div>
+                                    </div>
+                                </label>
+                                <label class="delivery-time-option cursor-pointer">
+                                    <input type="radio" name="delivery" value="evening" class="sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-lg text-center hover:border-warm-orange transition-colors">
+                                        <div class="text-xl mb-1">🌆</div>
+                                        <div class="text-sm font-medium">مساءً</div>
+                                        <div class="text-xs text-gray-600">4-8 م</div>
+                                    </div>
+                                </label>
+                                <label class="delivery-time-option cursor-pointer">
+                                    <input type="radio" name="delivery" value="flexible" class="sr-only">
+                                    <div class="p-3 border-2 border-gray-200 rounded-lg text-center hover:border-warm-orange transition-colors">
+                                        <div class="text-xl mb-1">⏰</div>
+                                        <div class="text-sm font-medium">مرن</div>
+                                        <div class="text-xs text-gray-600">حسب الاتفاق</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pricing Display -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl p-8 shadow-lg sticky top-24 animate-on-scroll">
+                        <h3 class="text-xl font-bold text-text-dark mb-6 text-center">تكلفة اشتراكك</h3>
+                        
+                        <div id="pricing-display" class="pricing-breakdown rounded-lg p-6 mb-6">
+                            <!-- Pricing will be calculated and displayed here -->
+                        </div>
+                        
+                        <!-- Savings Chart -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-text-dark mb-3">مقارنة التوفير</h4>
+                            <div id="savings-chart" style="height: 200px;"></div>
+                        </div>
+                        
+                        <!-- CTA Button -->
+                        <button onclick="proceedToCheckout()" class="w-full bg-warm-orange text-white py-4 rounded-lg hover:bg-orange-500 transition-colors font-bold text-lg">
+                            ابدأي اشتراكك الآن
+                        </button>
+                        
+                        <div class="mt-4 text-center">
+                            <p class="text-sm text-gray-600">✓ إلغاء مجاني في أي وقت</p>
+                            <p class="text-sm text-gray-600">✓ ضمان استعادة الأموال</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plan Comparison Table -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-on-scroll">
+                <h2 class="text-3xl font-bold text-text-dark mb-4">مقارنة الخطط</h2>
+                <p class="text-lg text-gray-600">
+                    قارني بين مميزات كل خطة واختاري الأنسب لك
+                </p>
+            </div>
+            
+            <div class="overflow-x-auto animate-on-scroll">
+                <table class="w-full bg-white rounded-xl shadow-lg overflow-hidden">
+                    <thead class="bg-warm-beige">
+                        <tr>
+                            <th class="px-6 py-4 text-right font-bold text-text-dark">الميزة</th>
+                            <th class="px-6 py-4 text-center font-bold text-text-dark">أسبوعي</th>
+                            <th class="px-6 py-4 text-center font-bold text-text-dark">شهري</th>
+                            <th class="px-6 py-4 text-center font-bold text-text-dark">ربع سنوي</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-text-dark">السعر لكل وجبة</td>
+                            <td class="px-6 py-4 text-center">22 دينار</td>
+                            <td class="px-6 py-4 text-center text-green-600 font-bold">18 دينار</td>
+                            <td class="px-6 py-4 text-center text-green-600 font-bold">15 دينار</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-text-dark">الحد الأدنى للطلب</td>
+                            <td class="px-6 py-4 text-center">3 وجبات</td>
+                            <td class="px-6 py-4 text-center">12 وجبة</td>
+                            <td class="px-6 py-4 text-center">30 وجبة</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-text-dark">التوصيل</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓ مجاني</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓ مجاني</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓ مجاني</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-text-dark">اختيار الطباخة</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-text-dark">أولوية الحجز</td>
+                            <td class="px-6 py-4 text-center text-gray-400">✗</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-text-dark">استشارة تغذية</td>
+                            <td class="px-6 py-4 text-center text-gray-400">✗</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓ مجانية</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓ مجانية</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-text-dark">وجبات مجانية</td>
+                            <td class="px-6 py-4 text-center text-gray-400">✗</td>
+                            <td class="px-6 py-4 text-center text-gray-400">✗</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓ 2 وجبة شهرياً</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-medium text-text-dark">الإلغاء</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓ في أي وقت</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓ في أي وقت</td>
+                            <td class="px-6 py-4 text-center text-green-600">✓ في أي وقت</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-warm-beige">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-on-scroll">
+                <h2 class="text-3xl font-bold text-text-dark mb-4">الأسئلة الشائعة</h2>
+                <p class="text-lg text-gray-600">
+                    إجابات على أكثر الأسئلة التي تردنا حول الاشتراكات
+                </p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-sm animate-on-scroll">
+                    <button class="faq-toggle w-full p-6 text-right flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                        <span class="font-medium text-text-dark">هل يمكنني تغيير طباختك في أي وقت؟</span>
+                        <svg class="w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-600 leading-relaxed">
+                            نعم، يمكنك تغيير طباختك في أي وقت من خلال حسابك. فقط تأكدي من إبلاغنا قبل 24 ساعة من موعد الوجبة القادمة.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm animate-on-scroll">
+                    <button class="faq-toggle w-full p-6 text-right flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                        <span class="font-medium text-text-dark">ماذا لو أردت إلغاء الاشتراك مؤقتاً؟</span>
+                        <svg class="w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-600 leading-relaxed">
+                            يمكنك إيقاف الاشتراك مؤقتاً من 3 أيام حتى 30 يوماً دون أي رسوم إضافية. فقط أبلغينا مسبقاً.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm animate-on-scroll">
+                    <button class="faq-toggle w-full p-6 text-right flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                        <span class="font-medium text-text-dark">هل يمكنني تخصيص الوجبات حسب تفضيلاتي؟</span>
+                        <svg class="w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-600 leading-relaxed">
+                            بالتأكيد! يمكنك تحديد تفضيلاتك الغذائية، المكونات التي تفضلين تجنبها، ونوع الطبخ المفضل لديك.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm animate-on-scroll">
+                    <button class="faq-toggle w-full p-6 text-right flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                        <span class="font-medium text-text-dark">ما هي سياسة الاسترجاع؟</span>
+                        <svg class="w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-600 leading-relaxed">
+                            نقدم ضمان استعادة أموال كامل خلال 7 أيام من بدء الاشتراك إذا لم تكن راضية عن جودة الخدمة.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-3xl font-bold text-gradient mb-4">طبخة</div>
+                <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+                    منصة طبخة - ربط النساء العاملات بأفضل الطباخات المنزليات للحصول على وجبات منزلية لذيذة وصحية
+                </p>
+                <div class="border-t border-gray-600 pt-6">
+                    <p class="text-gray-400">
+                        © 2024 طبخة. جميع الحقوق محفوظة | مصمم بكل حب للنساء السعوديات
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+    <script>
+        // Subscription Plan Builder Logic
+        let subscriptionPlan = {
+            frequency: 'weekly',
+            mealsPerDay: 1,
+            portionSize: 'regular',
+            dietary: [],
+            deliveryTime: 'lunch'
+        };
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePlanBuilder();
+            initializeSavingsChart();
+            setupEventListeners();
+            
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        function initializePlanBuilder() {
+            updatePricing();
+        }
+        
+        function setupEventListeners() {
+            // Frequency selection
+            document.querySelectorAll('input[name="frequency"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    subscriptionPlan.frequency = this.value;
+                    updateFrequencySelection(this.value);
+                    updatePricing();
+                });
+            });
+            
+            // Portion size selection
+            document.querySelectorAll('input[name="portion"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    subscriptionPlan.portionSize = this.value;
+                    updatePortionSelection(this.value);
+                    updatePricing();
+                });
+            });
+            
+            // Delivery time selection
+            document.querySelectorAll('input[name="delivery"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    subscriptionPlan.deliveryTime = this.value;
+                    updateDeliverySelection(this.value);
+                    updatePricing();
+                });
+            });
+            
+            // Dietary preferences
+            document.querySelectorAll('input[name="dietary"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    if (this.checked) {
+                        subscriptionPlan.dietary.push(this.value);
+                    } else {
+                        subscriptionPlan.dietary = subscriptionPlan.dietary.filter(d => d !== this.value);
+                    }
+                    updateDietarySelection();
+                    updatePricing();
+                });
+            });
+        }
+        
+        function updateFrequencySelection(selected) {
+            document.querySelectorAll('.plan-frequency-option div').forEach(div => {
+                div.classList.remove('border-warm-orange', 'bg-orange-50');
+                div.classList.add('border-gray-200');
+            });
+            
+            const selectedDiv = document.querySelector(`input[value="${selected}"]`).parentElement.querySelector('div');
+            selectedDiv.classList.remove('border-gray-200');
+            selectedDiv.classList.add('border-warm-orange', 'bg-orange-50');
+        }
+        
+        function updatePortionSelection(selected) {
+            document.querySelectorAll('.portion-size-option div').forEach(div => {
+                div.classList.remove('border-warm-orange', 'bg-orange-50');
+                div.classList.add('border-gray-200');
+            });
+            
+            const selectedDiv = document.querySelector(`input[value="${selected}"]`).parentElement.querySelector('div');
+            selectedDiv.classList.remove('border-gray-200');
+            selectedDiv.classList.add('border-warm-orange', 'bg-orange-50');
+        }
+        
+        function updateDeliverySelection(selected) {
+            document.querySelectorAll('.delivery-time-option div').forEach(div => {
+                div.classList.remove('border-warm-orange', 'bg-orange-50');
+                div.classList.add('border-gray-200');
+            });
+            
+            const selectedDiv = document.querySelector(`input[value="${selected}"]`).parentElement.querySelector('div');
+            selectedDiv.classList.remove('border-gray-200');
+            selectedDiv.classList.add('border-warm-orange', 'bg-orange-50');
+        }
+        
+        function updateDietarySelection() {
+            document.querySelectorAll('.dietary-option div').forEach(div => {
+                const input = div.parentElement.querySelector('input');
+                if (input.checked) {
+                    div.classList.remove('border-gray-200');
+                    div.classList.add('border-warm-orange', 'bg-orange-50');
+                } else {
+                    div.classList.remove('border-warm-orange', 'bg-orange-50');
+                    div.classList.add('border-gray-200');
+                }
+            });
+        }
+        
+        function adjustMeals(change) {
+            const newCount = Math.max(1, Math.min(3, subscriptionPlan.mealsPerDay + change));
+            subscriptionPlan.mealsPerDay = newCount;
+            
+            document.getElementById('meals-count').textContent = newCount;
+            document.getElementById('meals-slider').value = newCount;
+            
+            const mealText = newCount === 1 ? 'وجبة في اليوم' : newCount === 2 ? 'وجبتين في اليوم' : '3 وجبات في اليوم';
+            document.querySelector('#meals-count').nextElementSibling.textContent = mealText;
+            
+            updatePricing();
+        }
+        
+        function updateMealsCount(value) {
+            subscriptionPlan.mealsPerDay = parseInt(value);
+            document.getElementById('meals-count').textContent = value;
+            
+            const mealText = value == 1 ? 'وجبة في اليوم' : value == 2 ? 'وجبتين في اليوم' : '3 وجبات في اليوم';
+            document.querySelector('#meals-count').nextElementSibling.textContent = mealText;
+            
+            updatePricing();
+        }
+        
+        function updatePricing() {
+            const plan = subscriptionPlan;
+            let basePrice = 25; // Base price per meal
+            
+            // Calculate based on frequency
+            const frequencyMultiplier = {
+                'daily': 1,
+                'weekly': 0.9,
+                'monthly': 0.8
+            };
+            
+            // Calculate based on portion size
+            const portionMultiplier = {
+                'small': 0.8,
+                'regular': 1,
+                'large': 1.3
+            };
+            
+            // Dietary preferences may add cost
+            const dietaryCost = plan.dietary.length * 2; // 2 riyals per dietary preference
+            
+            const mealsPerWeek = plan.frequency === 'daily' ? 7 : plan.frequency === 'weekly' ? 1 : 4;
+            const totalMeals = mealsPerWeek * plan.mealsPerDay;
+            
+            const pricePerMeal = (basePrice * frequencyMultiplier[plan.frequency] * portionMultiplier[plan.portionSize]) + dietaryCost;
+            const weeklyTotal = pricePerMeal * totalMeals;
+            const monthlyTotal = weeklyTotal * 4;
+            const yearlyTotal = monthlyTotal * 12;
+            
+            // Update display
+            const pricingDisplay = document.getElementById('pricing-display');
+            if (pricingDisplay) {
+                pricingDisplay.innerHTML = `
+                    <div class="text-center mb-4">
+                        <div class="text-3xl font-bold text-warm-orange">${pricePerMeal.toFixed(0)} دينار</div>
+                        <div class="text-gray-600">لكل وجبة</div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>الإجمالي الأسبوعي:</span>
+                            <span class="font-bold">${weeklyTotal.toFixed(0)} دينار</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>الإجمالي الشهري:</span>
+                            <span class="font-bold">${monthlyTotal.toFixed(0)} دينار</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>الإجمالي السنوي:</span>
+                            <span class="font-bold">${yearlyTotal.toFixed(0)} دينار</span>
+                        </div>
+                        ${plan.frequency !== 'daily' ? `
+                            <div class="text-green-600 text-xs mt-2">
+                                ✅ توفير ${Math.round((1 - frequencyMultiplier[plan.frequency]) * 100)}% مقارنة بالحجز اليومي
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+            
+            // Update savings chart
+            updateSavingsChart();
+        }
+        
+        function initializeSavingsChart() {
+            const chartDom = document.getElementById('savings-chart');
+            const myChart = echarts.init(chartDom);
+            
+            const option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['يومي', 'أسبوعي', 'شهري'],
+                    axisLabel: {
+                        fontSize: 10
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        fontSize: 10,
+                        formatter: '{value}%'
+                    }
+                },
+                series: [{
+                    name: 'التوفير',
+                    type: 'bar',
+                    data: [0, 18, 32],
+                    itemStyle: {
+                        color: '#E8A87C'
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{c}%'
+                    }
+                }]
+            };
+            
+            myChart.setOption(option);
+            
+            // Store chart instance globally
+            window.savingsChart = myChart;
+        }
+        
+        function updateSavingsChart() {
+            if (window.savingsChart) {
+                const frequency = subscriptionPlan.frequency;
+                const savings = {
+                    'daily': 0,
+                    'weekly': 18,
+                    'monthly': 32
+                };
+                
+                const option = {
+                    series: [{
+                        data: [0, 18, 32],
+                        markPoint: {
+                            data: [{
+                                name: 'اختيارك',
+                                value: savings[frequency],
+                                xAxis: frequency === 'daily' ? 0 : frequency === 'weekly' ? 1 : 2,
+                                yAxis: savings[frequency]
+                            }]
+                        }
+                    }]
+                };
+                
+                window.savingsChart.setOption(option);
+            }
+        }
+        
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        function proceedToCheckout() {
+            showNotification('جاري تحويلك إلى صفحة الدفع...', 'info');
+            // In a real app, this would redirect to checkout page
+            setTimeout(() => {
+                showNotification('تم إنشاء اشتراكك بنجاح! سيتواصل معك فريقنا قريباً', 'success');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
