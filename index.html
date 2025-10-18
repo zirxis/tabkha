@@ -1,708 +1,0 @@
- <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طبخة - وجبات منزلية من القلب إلى طاولتك</title>
-    <meta name="description" content="منصة طبخة تربط النساء العاملات بأفضل الطباخات المنزليات للحصول على وجبات منزلية لذيذة بسهولة وثقة">
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'warm-beige': '#F5F1E8',
-                        'olive-green': '#8B9A7A',
-                        'warm-orange': '#E8A87C',
-                        'text-dark': '#2C2C2C'
-                    },
-                    fontFamily: {
-                        'arabic': ['Cairo', 'sans-serif'],
-                        'sans': ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
-    
-    <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #F5F1E8;
-        }
-        
-        .hero-gradient {
-            background: linear-gradient(135deg, #F5F1E8 0%, #E8A87C 100%);
-        }
-        
-        .text-gradient {
-            background: linear-gradient(135deg, #E8A87C, #8B9A7A);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease-out;
-        }
-        
-        .animate-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .meal-category-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .floating-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .pulse-glow {
-            animation: pulse-glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes pulse-glow {
-            from { box-shadow: 0 0 20px rgba(232, 168, 124, 0.3); }
-            to { box-shadow: 0 0 30px rgba(232, 168, 124, 0.6); }
-        }
-    </style>
-</head>
-<body class="bg-warm-beige text-text-dark">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="text-2xl font-bold text-gradient">طبخة</div>
-                    <span class="text-sm text-gray-600 mr-2 hidden sm:block">| وجبات منزلية</span>
-                </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-warm-orange font-medium border-b-2 border-warm-orange pb-1">الرئيسية</a>
-                    <a href="subscriptions.html" class="text-gray-700 hover:text-warm-orange transition-colors">الاشتراكات</a>
-                    <a href="chefs.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات</a>
-					<a href="wjbatnsfm.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات النصف مجهزة</a>
-                    <a href="#contact" class="text-gray-700 hover:text-warm-orange transition-colors">تواصل معنا</a>
-                </div>
-                
-                <!-- CTA Button -->
-                <div class="hidden md:block">
-                    <button onclick="scrollToSection('subscription-preview')" class="bg-warm-orange text-white px-6 py-2 rounded-full hover:bg-orange-500 transition-colors font-medium">
-                        ابدأي الآن
-                    </button>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-gray-700 hover:text-warm-orange">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden pb-4">
-                <div class="flex flex-col space-y-3">
-                    <a href="index.html" class="text-warm-orange font-medium">الرئيسية</a>
-                    <a href="subscriptions.html" class="text-gray-700 hover:text-warm-orange transition-colors">الاشتراكات</a>
-                    <a href="chefs.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات</a>
-					<a href="wjbatnsfm.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات النصف مجهزة</a>
-                    <a href="#contact" class="text-gray-700 hover:text-warm-orange transition-colors">تواصل معنا</a>
-                    <button onclick="scrollToSection('subscription-preview')" class="bg-warm-orange text-white px-6 py-2 rounded-full hover:bg-orange-500 transition-colors font-medium w-full">
-                        ابدأي الآن
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-gradient pt-20 pb-16 min-h-screen flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Hero Content -->
-                <div class="text-center lg:text-right">
-                    <h1 class="text-4xl md:text-6xl font-bold text-text-dark mb-6 leading-tight">
-                        <span class="hero-text-animation"></span>
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-                        منصة طبخة تربط النساء العاملات بأفضل الطباخات المنزليات اللواتي يحضرن وجبات لذيذة وصحية 
-                        من مكونات طازجة وبأسعار معقولة. استمتعي بطعم البيت دون عناء الطبخ.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <button onclick="scrollToSection('meal-categories')" 
-                                class="bg-warm-orange text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-orange-500 transition-all duration-300 pulse-glow">
-                            ابدأي رحلتك الغذائية
-                        </button>
-                        <button onclick="scrollToSection('chef-quiz')" 
-                                class="border-2 border-warm-orange text-warm-orange px-8 py-4 rounded-full text-lg font-medium hover:bg-warm-orange hover:text-white transition-all duration-300">
-                            اختاري طباختك المثالية
-                        </button>
-                    </div>
-                    
-                    <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-gray-300">
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-warm-orange">500+</div>
-                            <div class="text-sm text-gray-600">طباخة منزلية</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-warm-orange">10,000+</div>
-                            <div class="text-sm text-gray-600">عميلة راضية</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-warm-orange">50,000+</div>
-                            <div class="text-sm text-gray-600">وجبة محضرة</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Hero Image -->
-                <div class="relative">
-                    <div class="floating-animation">
-                        <img src="resources/hero-cooking.jpg" alt="طبخة منزلية أصيلة" 
-                             class="w-full h-96 lg:h-[500px] object-cover rounded-2xl shadow-2xl">
-                    </div>
-                    <!-- Floating Elements -->
-                    <div class="absolute -top-4 -left-4 bg-white rounded-full p-3 shadow-lg floating-animation" style="animation-delay: -2s;">
-                        <span class="text-2xl">🍲</span>
-                    </div>
-                    <div class="absolute -bottom-4 -right-4 bg-white rounded-full p-3 shadow-lg floating-animation" style="animation-delay: -4s;">
-                        <span class="text-2xl">🥗</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Meal Categories Section -->
-    <section id="meal-categories" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold text-text-dark mb-4">اختاري نوع الوجبات المفضل</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    مجموعة متنوعة من الأطباق المنزلية اللذيذة التي تناسب جميع الأذواق والاحتياجات الغذائية
-                </p>
-            </div>
-            
-            <!-- Meal Categories Grid -->
-            <div id="meal-categories" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-on-scroll">
-                <!-- Categories will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Chef Discovery Quiz Section -->
-    <section id="chef-quiz" class="py-20 bg-warm-beige">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold text-text-dark mb-4">اكتشفي طباختك المثالية</h2>
-                <p class="text-lg text-gray-600">
-                    أجيبي على بعض الأسئلة البسيطة وسنساعدك في العثور على الطباخة المناسبة لاحتياجاتك
-                </p>
-            </div>
-            
-            <!-- Quiz Container -->
-            <div id="quiz-container" class="animate-on-scroll">
-                <!-- Quiz content will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Chefs Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold text-text-dark mb-4">أفضل طباخاتنا</h2>
-                <p class="text-lg text-gray-600">
-                    تعرفي على طباخاتنا المميزات اللواتي يقدمن أشهى الوجبات المنزلية
-                </p>
-            </div>
-            
-            <!-- Chefs Carousel -->
-            <div class="splide hero-carousel animate-on-scroll" role="group" aria-label="أفضل الطباخات">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <li class="splide__slide">
-                            <div class="bg-white rounded-xl shadow-lg overflow-hidden mx-4">
-                                <img src="resources/chef-amal.jpg" alt="أمل محمد" class="w-full h-48 object-cover">
-                                <div class="p-6">
-                                    <h3 class="text-xl font-bold text-text-dark mb-2">أمل محمد</h3>
-                                    <p class="text-gray-600 mb-3">أطباق تقليدية ومناسبات</p>
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center">
-                                            <span class="text-yellow-400">★★★★★</span>
-                                            <span class="text-sm text-gray-600 mr-2">4.9 (127)</span>
-                                        </div>
-                                        <span class="text-green-600 text-sm">متاحة الآن</span>
-                                    </div>
-                                    <button onclick="bookChef('amal')" class="w-full bg-warm-orange text-white py-2 rounded-lg hover:bg-orange-500 transition-colors">
-                                        اختيار الطباخة
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="bg-white rounded-xl shadow-lg overflow-hidden mx-4">
-                                <img src="resources/chef-sara.jpg" alt="سارة أحمد" class="w-full h-48 object-cover">
-                                <div class="p-6">
-                                    <h3 class="text-xl font-bold text-text-dark mb-2">سارة أحمد</h3>
-                                    <p class="text-gray-600 mb-3">أطباق صحية ودايت</p>
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center">
-                                            <span class="text-yellow-400">★★★★★</span>
-                                            <span class="text-sm text-gray-600 mr-2">4.8 (89)</span>
-                                        </div>
-                                        <span class="text-green-600 text-sm">متاحة الآن</span>
-                                    </div>
-                                    <button onclick="bookChef('sara')" class="w-full bg-warm-orange text-white py-2 rounded-lg hover:bg-orange-500 transition-colors">
-                                        اختيار الطباخة
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="bg-white rounded-xl shadow-lg overflow-hidden mx-4">
-                                <img src="resources/chef-fatima.jpg" alt="فاطمة عبدالله" class="w-full h-48 object-cover">
-                                <div class="p-6">
-                                    <h3 class="text-xl font-bold text-text-dark mb-2">فاطمة عبدالله</h3>
-                                    <p class="text-gray-600 mb-3">وصفات منزلية أصيلة</p>
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center">
-                                            <span class="text-yellow-400">★★★★★</span>
-                                            <span class="text-sm text-gray-600 mr-2">4.9 (156)</span>
-                                        </div>
-                                        <span class="text-green-600 text-sm">متاحة الآن</span>
-                                    </div>
-                                    <button onclick="bookChef('fatima')" class="w-full bg-warm-orange text-white py-2 rounded-lg hover:bg-orange-500 transition-colors">
-                                        اختيار الطباخة
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="py-20 bg-warm-beige">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold text-text-dark mb-4">كيفية العمل؟</h2>
-                <p class="text-lg text-gray-600">
-                    ثلاث خطوات بسيطة للحصول على أشهى الوجبات المنزلية
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center animate-on-scroll">
-                    <div class="w-20 h-20 bg-warm-orange rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">1</div>
-                    <h3 class="text-xl font-bold text-text-dark mb-4">اختاري طباختك</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        تصفحي ملفات الطباخات واختاري الأنسب لاحتياجاتك بناءً على التقييمات والتخصصات والأسعار
-                    </p>
-                </div>
-                
-                <div class="text-center animate-on-scroll">
-                    <div class="w-20 h-20 bg-olive-green rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">2</div>
-                    <h3 class="text-xl font-bold text-text-dark mb-4">خصصي اشتراكك</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        حددي عدد الوجبات، نوع الطعام، أوقات التوصيل، وأي متطلبات خاصة حسب احتياجاتك
-                    </p>
-                </div>
-                
-                <div class="text-center animate-on-scroll">
-                    <div class="w-20 h-20 bg-warm-orange rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">3</div>
-                    <h3 class="text-xl font-bold text-text-dark mb-4">استلمي طلبك</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        استلمي وجباتك الطازجة واللذيذة في الوقت المحدد، جاهزة للتسخين والتقديم
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Customer Testimonials Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold text-text-dark mb-4">آراء عملائنا</h2>
-                <p class="text-lg text-gray-600">
-                    قصص نجاح من نساء استفدن من خدماتنا
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-warm-beige rounded-xl p-6 animate-on-scroll">
-                    <div class="flex items-center mb-4">
-                        <img src="resources/customer-layla.jpg" alt="ليلى" class="w-12 h-12 rounded-full object-cover ml-4">
-                        <div>
-                            <h4 class="font-bold text-text-dark">ليلى أحمد</h4>
-                            <p class="text-sm text-gray-600">مديرة تسويق</p>
-                        </div>
-                    </div>
-                    <div class="flex mb-3">
-                        <span class="text-yellow-400">★★★★★</span>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed">
-                        "خدمة رائعة! أشعر بالفرق في جودة الطعام مقارنة بالمطاعم. الطباخة أمل ممتازة ودائماً في الموعد."
-                    </p>
-                </div>
-                
-                <div class="bg-warm-beige rounded-xl p-6 animate-on-scroll">
-                    <div class="flex items-center mb-4">
-                        <img src="resources/customer-noura.jpg" alt="نورة" class="w-12 h-12 rounded-full object-cover ml-4">
-                        <div>
-                            <h4 class="font-bold text-text-dark">نورة خالد</h4>
-                            <p class="text-sm text-gray-600">أم وربة منزل</p>
-                        </div>
-                    </div>
-                    <div class="flex mb-3">
-                        <span class="text-yellow-400">★★★★★</span>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed">
-                        "أفضل قرار اتخذته هذا العام! وفرت وقتي وجهدي وأسرتي سعيدة دائماً بالوجبات اللذيذة."
-                    </p>
-                </div>
-                
-                <div class="bg-warm-beige rounded-xl p-6 animate-on-scroll md:col-span-2 lg:col-span-1">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-olive-green flex items-center justify-center text-white font-bold ml-4">
-                            س
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-text-dark">سارة محمد</h4>
-                            <p class="text-sm text-gray-600">موظفة حكومية</p>
-                        </div>
-                    </div>
-                    <div class="flex mb-3">
-                        <span class="text-yellow-400">★★★★★</span>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed">
-                        "الأسعار معقولة والجودة ممتازة. أحب التنوع في القائمة كل أسبوع. أنصح جميع الزميلات في العمل بالتجربة."
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Subscription Preview Section -->
-    <section id="subscription-preview" class="py-20 bg-warm-beige">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold text-text-dark mb-4">خطط الاشتراك</h2>
-                <p class="text-lg text-gray-600">
-                    اختاري الخطة الأنسب لاحتياجاتك ووفري أكثر مع الاشتراكات الطويلة
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Weekly Plan -->
-                <div class="bg-white rounded-xl p-8 shadow-lg animate-on-scroll hover:shadow-xl transition-shadow">
-                    <div class="text-center mb-6">
-                        <h3 class="text-2xl font-bold text-text-dark mb-2">أسبوعي</h3>
-                        <p class="text-gray-600">للتجربة والمرونة</p>
-                    </div>
-                    <div class="text-center mb-6">
-                        <div class="text-4xl font-bold text-warm-orange mb-2">22 دينار</div>
-                        <div class="text-gray-600">لكل وجبة</div>
-                    </div>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">1-7 وجبات أسبوعياً</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">توصيل مجاني</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">اختيار الطباخة</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">دعم العملاء</span>
-                        </li>
-                    </ul>
-                    <button onclick="window.location.href='subscriptions.html'" class="w-full bg-warm-orange text-white py-3 rounded-lg hover:bg-orange-500 transition-colors font-medium">
-                        اختيار الخطة
-                    </button>
-                </div>
-                
-                <!-- Monthly Plan -->
-                <div class="bg-white rounded-xl p-8 shadow-lg animate-on-scroll hover:shadow-xl transition-shadow border-2 border-warm-orange relative">
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <span class="bg-warm-orange text-white px-4 py-1 rounded-full text-sm font-medium">الأكثر شعبية</span>
-                    </div>
-                    <div class="text-center mb-6">
-                        <h3 class="text-2xl font-bold text-text-dark mb-2">شهري</h3>
-                        <p class="text-gray-600">للتوفير والاستمرارية</p>
-                    </div>
-                    <div class="text-center mb-6">
-                        <div class="text-4xl font-bold text-warm-orange mb-2">18 دينار</div>
-                        <div class="text-gray-600">لكل وجبة</div>
-                        <div class="text-sm text-green-600 mt-1">توفير 18%</div>
-                    </div>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">30-90 وجبة شهرياً</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">توصيل مجاني</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">اختيار الطباخة</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">أولوية الحجز</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">استشارة تغذية مجانية</span>
-                        </li>
-                    </ul>
-                    <button onclick="window.location.href='subscriptions.html'" class="w-full bg-warm-orange text-white py-3 rounded-lg hover:bg-orange-500 transition-colors font-medium">
-                        اختيار الخطة
-                    </button>
-                </div>
-                
-                <!-- Quarterly Plan -->
-                <div class="bg-white rounded-xl p-8 shadow-lg animate-on-scroll hover:shadow-xl transition-shadow">
-                    <div class="text-center mb-6">
-                        <h3 class="text-2xl font-bold text-text-dark mb-2">ربع سنوي</h3>
-                        <p class="text-gray-600">لأفضل قيمة</p>
-                    </div>
-                    <div class="text-center mb-6">
-                        <div class="text-4xl font-bold text-warm-orange mb-2">15 دينار</div>
-                        <div class="text-gray-600">لكل وجبة</div>
-                        <div class="text-sm text-green-600 mt-1">توفير 32%</div>
-                    </div>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">90-270 وجبة ربع سنوي</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">توصيل مجاني</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">اختيار الطباخة</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">أولوية الحجز</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">استشارة تغذية مجانية</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="text-green-500 ml-2">✓</span>
-                            <span class="text-gray-700">وجبات مجانية شهرياً</span>
-                        </li>
-                    </ul>
-                    <button onclick="window.location.href='subscriptions.html'" class="w-full bg-warm-orange text-white py-3 rounded-lg hover:bg-orange-500 transition-colors font-medium">
-                        اختيار الخطة
-                    </button>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12 animate-on-scroll">
-                <p class="text-gray-600 mb-4">هل تحتاجين خطة مخصصة؟</p>
-                <button onclick="showNotification('سيتواصل معك فريقنا لعمل خطة مخصصة', 'info')" 
-                        class="bg-olive-green text-white px-8 py-3 rounded-full hover:bg-green-600 transition-colors font-medium">
-                    تواصلي معنا
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold text-text-dark mb-4">تواصلي معنا</h2>
-                <p class="text-lg text-gray-600">
-                    فريقنا جاهز للإجابة على جميع استفساراتك
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Contact Info -->
-                <div class="animate-on-scroll">
-                    <h3 class="text-2xl font-bold text-text-dark mb-6">معلومات التواصل</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-warm-orange rounded-full flex items-center justify-center text-white ml-4">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium text-text-dark">الهاتف</p>
-                                <p class="text-gray-600">0000000000</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-olive-green rounded-full flex items-center justify-center text-white ml-4">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium text-text-dark">البريد الإلكتروني</p>
-                                <p class="text-gray-600">info@tabkha.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-warm-orange rounded-full flex items-center justify-center text-white ml-4">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium text-text-dark">العنوان</p>
-                                <p class="text-gray-600">الخنشلة،  الجزائر</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Social Media -->
-                    <div class="mt-8">
-                        <h4 class="font-bold text-text-dark mb-4">تابعينا على</h4>
-                        <div class="flex space-x-4">
-                            <a href="#" class="w-10 h-10 bg-warm-orange rounded-full flex items-center justify-center text-white hover:bg-orange-500 transition-colors">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                                </svg>
-                            </a>
-                            <a href="#" class="w-10 h-10 bg-olive-green rounded-full flex items-center justify-center text-white hover:bg-green-600 transition-colors">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.017.001z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Contact Form -->
-                <div class="animate-on-scroll">
-                    <h3 class="text-2xl font-bold text-text-dark mb-6">أرسلي لنا رسالة</h3>
-                    <form class="space-y-4">
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-gray-700 font-medium mb-2">الاسم</label>
-                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-warm-orange transition-colors">
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-medium mb-2">الهاتف</label>
-                                <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-warm-orange transition-colors">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">البريد الإلكتروني</label>
-                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-warm-orange transition-colors">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">الرسالة</label>
-                            <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-warm-orange transition-colors resize-none"></textarea>
-                        </div>
-                        <button type="submit" onclick="showNotification('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً', 'success')" 
-                                class="w-full bg-warm-orange text-white py-3 rounded-lg hover:bg-orange-500 transition-colors font-medium">
-                            إرسال الرسالة
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-text-dark text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <div class="text-3xl font-bold text-gradient mb-4">طبخة</div>
-                <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
-                    منصة طبخة - ربط النساء العاملات بأفضل الطباخات المنزليات للحصول على وجبات منزلية لذيذة وصحية
-                </p>
-                <div class="border-t border-gray-600 pt-6">
-                    <p class="text-gray-400">
-                        © 2025 طبخة. جميع الحقوق محفوظة | مصمم بكل حب للنساء الجزائريات
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Main JavaScript -->
-    <script src="main.js"></script>
-    
-    <script>
-        // Utility functions
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-        
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add scroll animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
-                    }
-                });
-            }, observerOptions);
-            
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                observer.observe(el);
-            });
-        });
-    </script>
-</body>
-</html>
