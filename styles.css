@@ -1,0 +1,85 @@
+/* تنسيق عام */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Tajawal', 'Segoe UI', sans-serif;
+  background-color: #f9f6f0;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: #e8d5b5;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  color: #5a3e2b;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: #6b5e50;
+  margin-top: 0.5rem;
+}
+
+/* شبكة الفئات */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: white;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  color: inherit;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.category-card h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #5a3e2b;
+}
+
+/* تذييل الصفحة */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #e8d5b5;
+  margin-top: 3rem;
+  color: #6b5e50;
+  font-size: 0.95rem;
+}
+
+/* دعم اللغات العربية (خط عربي جذاب) */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');

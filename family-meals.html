@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وجبات العائلة - طبخة</title>
+    <meta name="description" content="وجبات عائلية كاملة بأسعار اقتصادية، مثالية للعائلات الكبيرة والمناسبات مع طبخة">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'warm-beige': '#F5F1E8',
+                        'olive-green': '#8B9A7A',
+                        'warm-orange': '#E8A87C',
+                        'text-dark': '#2C2C2C'
+                    },
+                    fontFamily: {
+                        'arabic': ['Cairo', 'sans-serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #F5F1E8;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #E8A87C, #8B9A7A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .meal-card:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        
+        .filter-tag.active {
+            background-color: #E8A87C;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .prep-time-badge {
+            background: linear-gradient(135deg, #E8A87C, #F3A712);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(232, 168, 124, 0.3);
+        }
+        
+        .family-badge {
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .serving-size {
+            background-color: #8B5CF6;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-warm-beige text-text-dark">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-gradient">طبخة</div>
+                    <span class="text-sm text-gray-600 mr-2 hidden sm:block">| وجبات منزلية</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-warm-orange transition-colors">الرئيسية</a>
+                    <a href="subscriptions.html" class="text-gray-700 hover:text-warm-orange transition-colors">الاشتراكات</a>
+                    <a href="chefs.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات</a>
+                    <a href="wjbatnsfm.html" class="text-gray-700 hover:text-warm-orange transition-colors">نصف مجهزة</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-warm-orange transition-colors flex items-center">
+                            الأطباق
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <a href="traditional-meals.html" class="block px-4 py-2 text-gray-700 hover:text-warm-orange hover:bg-orange-50">الأطباق التقليدية</a>
+                            <a href="healthy-meals.html" class="block px-4 py-2 text-gray-700 hover:text-warm-orange hover:bg-orange-50">الأطباق الصحية</a>
+                            <a href="international-meals.html" class="block px-4 py-2 text-gray-700 hover:text-warm-orange hover:bg-orange-50">الأطباق العالمية</a>
+                            <a href="family-meals.html" class="block px-4 py-2 text-warm-orange font-medium bg-orange-50">وجبات العائلة</a>
+                            <a href="desserts.html" class="block px-4 py-2 text-gray-700 hover:text-warm-orange hover:bg-orange-50">الحلويات</a>
+                        </div>
+                    </div>
+                    <a href="index.html#contact" class="text-gray-700 hover:text-warm-orange transition-colors">تواصل معنا</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-warm-orange">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.html" class="text-gray-700 hover:text-warm-orange transition-colors">الرئيسية</a>
+                    <a href="subscriptions.html" class="text-gray-700 hover:text-warm-orange transition-colors">الاشتراكات</a>
+                    <a href="chefs.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات</a>
+                    <a href="wjbatnsfm.html" class="text-gray-700 hover:text-warm-orange transition-colors">نصف مجهزة</a>
+                    <div class="border-t border-gray-200 pt-3">
+                        <p class="font-medium text-text-dark mb-2">الأطباق</p>
+                        <a href="traditional-meals.html" class="block py-2 text-gray-700 hover:text-warm-orange">الأطباق التقليدية</a>
+                        <a href="healthy-meals.html" class="block py-2 text-gray-700 hover:text-warm-orange">الأطباق الصحية</a>
+                        <a href="international-meals.html" class="block py-2 text-gray-700 hover:text-warm-orange">الأطباق العالمية</a>
+                        <a href="family-meals.html" class="block py-2 text-warm-orange font-medium">وجبات العائلة</a>
+                        <a href="desserts.html" class="block py-2 text-gray-700 hover:text-warm-orange">الحلويات</a>
+                    </div>
+                    <a href="index.html#contact" class="text-gray-700 hover:text-warm-orange transition-colors">تواصل معنا</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-24 pb-12 bg-gradient-to-br from-orange-50 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center animate-on-scroll">
+                <h1 class="text-4xl md:text-5xl font-bold text-text-dark mb-4">وجبات العائلة</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    وجبات كاملة بأسعار اقتصادية، مثالية للعائلات الكبيرة والمناسبات العائلية
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Family Benefits Section -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center animate-on-scroll">
+                <div>
+                    <h2 class="text-3xl font-bold text-text-dark mb-6">وجبات تجمع العائلة</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        في طبخة، نعلم أن وقت العائلة ثمين. لذلك نقدم لكِ وجبات عائلية كاملة تجمع بين الجودة العالية والأسعار الاقتصادية. 
+                        وجباتنا مصممة خصيصاً للعائلات الكبيرة، مع مراعاة تنوع الأذواق والاحتياجات الغذائية لجميع أفراد العائلة.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <span class="text-orange-500 text-xl ml-2">✓</span>
+                            <span class="text-gray-700">كميات كبيرة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-orange-500 text-xl ml-2">✓</span>
+                            <span class="text-gray-700">أسعار اقتصادية</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-orange-500 text-xl ml-2">✓</span>
+                            <span class="text-gray-700">تنوع في الأطباق</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-orange-500 text-xl ml-2">✓</span>
+                            <span class="text-gray-700">مناسبة للجميع</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" 
+                         alt="وجبات العائلة" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="py-8 bg-gradient-to-br from-orange-50 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-xl p-6 shadow-lg animate-on-scroll">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Search -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-text-dark mb-2 flex items-center">
+                            <span class="text-lg mr-2">🔍</span>
+                            البحث عن وجبة عائلية
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="meal-search" placeholder="ابحث بالاسم أو المكونات..." 
+                                   class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 transition-colors hover-lift"
+                                   onkeyup="filterMeals()">
+                            <svg class="absolute left-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Serving Size Filter -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-dark mb-2 flex items-center">
+                            <span class="text-lg mr-2">👨‍👩‍👧‍👦</span>
+                            عدد الأشخاص
+                        </label>
+                        <select id="serving-filter" onchange="filterMeals()" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 transition-colors hover-lift">
+                            <option value="">جميع الأحجام</option>
+                            <option value="4-6">4-6 أشخاص</option>
+                            <option value="6-8">6-8 أشخاص</option>
+                            <option value="8+">8+ أشخاص</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Meal Type Filters -->
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-text-dark mb-3 flex items-center">
+                        <span class="text-lg mr-2">🍽️</span>
+                        نوع الوجبة
+                    </label>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="toggleFilter(this, 'mealType')" data-value="complete" 
+                                class="filter-tag px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-orange-500 hover:text-white transition-colors text-sm hover-lift">
+                            وجبة كاملة
+                        </button>
+                        <button onclick="toggleFilter(this, 'mealType')" data-value="main" 
+                                class="filter-tag px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-orange-500 hover:text-white transition-colors text-sm hover-lift">
+                            طبق رئيسي فقط
+                        </button>
+                        <button onclick="toggleFilter(this, 'mealType')" data-value="party" 
+                                class="filter-tag px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-orange-500 hover:text-white transition-colors text-sm hover-lift">
+                            مناسبات
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meals Grid -->
+    <section id="meals-grid" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8 animate-on-scroll">
+                <div>
+                    <h2 class="text-2xl font-bold text-text-dark">الوجبات العائلية</h2>
+                    <p class="text-gray-600" id="results-count">عرض 6 من 18 وجبة</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <label class="text-sm font-medium text-text-dark">الترتيب حسب:</label>
+                    <select id="sort-by" onchange="sortMeals(this.value)" 
+                            class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 transition-colors hover-lift">
+                        <option value="servings">عدد الأشخاص</option>
+                        <option value="price">السعر</option>
+                        <option value="value">الأفضل قيمة</option>
+                        <option value="rating">التقييم</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="meals-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Meal cards will be populated by JavaScript -->
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="text-center mt-12 animate-on-scroll">
+                <button onclick="loadMoreMeals()" 
+                        class="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-medium pulse-glow hover-lift">
+                    عرض المزيد من الوجبات
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Family Packages Section -->
+    <section class="py-16 bg-gradient-to-br from-orange-50 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-on-scroll">
+                <h2 class="text-3xl font-bold text-text-dark mb-4">باقات العائلة المميزة</h2>
+                <p class="text-lg text-gray-600">
+                    خصومات خاصة للعائلات الكبيرة والطلبات المتكررة
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-6 text-center hover-lift animate-on-scroll">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        4-6
+                    </div>
+                    <h3 class="text-xl font-bold text-text-dark mb-2">الباقة الصغيرة</h3>
+                    <p class="text-gray-600 text-sm mb-4">مثالية للعائلات الصغيرة</p>
+                    <div class="text-2xl font-bold text-green-600 mb-4">توفير 15%</div>
+                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
+                        <li>وجبات لـ 4-6 أشخاص</li>
+                        <li>تنوع في الأطباق</li>
+                        <li>توصيل مجاني</li>
+                    </ul>
+                    <button class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+                        اختر الباقة
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center hover-lift animate-on-scroll border-2 border-orange-500 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">الأكثر شيوعاً</span>
+                    </div>
+                    <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        6-8
+                    </div>
+                    <h3 class="text-xl font-bold text-text-dark mb-2">الباقة المتوسطة</h3>
+                    <p class="text-gray-600 text-sm mb-4">مثالية لمعظم العائلات</p>
+                    <div class="text-2xl font-bold text-orange-600 mb-4">توفير 25%</div>
+                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
+                        <li>وجبات لـ 6-8 أشخاص</li>
+                        <li>3 أطباق رئيسية</li>
+                        <li>حلويات مجانية</li>
+                        <li>توصيل مجاني</li>
+                    </ul>
+                    <button class="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                        اختر الباقة
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center hover-lift animate-on-scroll">
+                    <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        8+
+                    </div>
+                    <h3 class="text-xl font-bold text-text-dark mb-2">الباقة الكبيرة</h3>
+                    <p class="text-gray-600 text-sm mb-4">مثالية للمناسبات</p>
+                    <div class="text-2xl font-bold text-purple-600 mb-4">توفير 35%</div>
+                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
+                        <li>وجبات لـ 8+ أشخاص</li>
+                        <li>5 أطباق رئيسية</li>
+                        <li>حلويات ومقبلات</li>
+                        <li>توصيل مجاني</li>
+                    </ul>
+                    <button class="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                        اختر الباقة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-3xl font-bold text-gradient mb-4">طبخة</div>
+                <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+                    منصة طبخة - ربط النساء العاملات بأفضل الطباخات المنزليات للحصول على وجبات منزلية لذيذة وصحية
+                </p>
+                <div class="border-t border-gray-600 pt-6">
+                    <p class="text-gray-400">
+                        © 2025 طبخة. جميع الحقوق محفوظة | مصمم بكل حب للنساء الجزائريات
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Family Meals Data
+        const mealsData = [
+            {
+                id: 'family-kabsa',
+                name: 'كبسة عائلية',
+                category: 'family',
+                image: 'resources/family-kabsa.jpg',
+                price: 85,
+                prepTime: 30,
+                difficulty: 'medium',
+                rating: 4.9,
+                reviews: 124,
+                description: 'كبسة دجاج عائلية مع أرز بسمتي وخضار. وجبة كاملة للعائلة.',
+                ingredients: ['دجاج', 'أرز بسمتي', 'بصل', 'طماطم', 'بهارات كبسة', 'زيت'],
+                storage: '3 أشهر في الفريزر',
+                servings: 6,
+                popular: true,
+                chef: 'أمل محمد',
+                servingSize: '6-8',
+                mealType: 'complete',
+                includes: ['طبق رئيسي', 'سلطة', 'خبز']
+            },
+            {
+                id: 'mandi-feast',
+                name: 'وليمة مندي',
+                category: 'family',
+                image: 'resources/mandi-feast.jpg',
+                price: 120,
+                prepTime: 40,
+                difficulty: 'medium',
+                rating: 4.8,
+                reviews: 89,
+                description: 'مندي لحم ضأن مع أرز معطر. وجبة فاخرة للمناسبات.',
+                ingredients: ['لحم ضأن', 'أرز بسمتي', 'بهارات مندي', 'زيت', 'لوز', 'زبيب'],
+                storage: '4 أشهر في الفريزر',
+                servings: 8,
+                popular: true,
+                chef: 'فاطمة الزهراء',
+                servingSize: '8+',
+                mealType: 'party',
+                includes: ['طبق رئيسي', 'مقبلات', 'صلصات']
+            },
+            {
+                id: 'mixed-grill',
+                name: 'مشاوي متنوعة',
+                category: 'family',
+                image: 'resources/mixed-grill.jpg',
+                price: 95,
+                prepTime: 25,
+                difficulty: 'medium',
+                rating: 4.7,
+                reviews: 76,
+                description: 'تشكيلة مشاوي مع أرص وخضار مشوية. وجبة شواء كاملة.',
+                ingredients: ['لحم ضأن', 'دجاج', 'كفتة', 'خضار مشوية', 'أرز', 'صلصات'],
+                storage: '3 أشهر في الفريزر',
+                servings: 6,
+                popular: true,
+                chef: 'نادية راشد',
+                servingSize: '6-8',
+                mealType: 'complete',
+                includes: ['3 أنواع مشاوي', 'أرص', 'خضار مشوية']
+            },
+            {
+                id: 'seafood-platter',
+                name: 'بحرية عائلية',
+                category: 'family',
+                image: 'resources/seafood-platter.jpg',
+                price: 110,
+                prepTime: 20,
+                difficulty: 'easy',
+                rating: 4.6,
+                reviews: 53,
+                description: 'تشكيلة مأكولات بحرية مع صلصات خاصة. وجبة بحرية فاخرة.',
+                ingredients: ['سمك', 'روبيان', 'كلماري', 'محار', 'ليمون', 'صلصات'],
+                storage: '2 أشهر في الفريزر',
+                servings: 4,
+                popular: false,
+                chef: 'سهام عبدالله',
+                servingSize: '4-6',
+                mealType: 'main',
+                includes: ['4 أنواع بحريات', 'صلصات', 'ليمون']
+            },
+            {
+                id: 'vegetarian-feast',
+                name: 'وليمة نباتية',
+                category: 'family',
+                image: 'resources/vegetarian-feast.jpg',
+                price: 65,
+                prepTime: 15,
+                difficulty: 'easy',
+                rating: 4.5,
+                reviews: 42,
+                description: 'تشكيلة أطباق نباتية متنوعة. وجبة صحية للعائلة.',
+                ingredients: ['خضار متنوعة', 'بقوليات', 'أرز', 'صلصات', 'بهارات'],
+                storage: '2 أشهر في الفريزر',
+                servings: 5,
+                popular: false,
+                chef: 'مريم علي',
+                servingSize: '4-6',
+                mealType: 'complete',
+                includes: ['4 أطباق نباتية', 'أرص', 'سلطات']
+            },
+            {
+                id: 'party-platter',
+                name: 'باقة المناسبات',
+                category: 'family',
+                image: 'resources/party-platter.jpg',
+                price: 150,
+                prepTime: 35,
+                difficulty: 'hard',
+                rating: 4.9,
+                reviews: 98,
+                description: 'باقة كاملة للمناسبات مع أطباق متنوعة. مثالية للاحتفالات.',
+                ingredients: ['لحم', 'دجاج', 'سمك', 'خضار', 'أرز', 'معجنات'],
+                storage: '4 أشهر في الفريزر',
+                servings: 10,
+                popular: true,
+                chef: 'وفاء حسن',
+                servingSize: '8+',
+                mealType: 'party',
+                includes: ['5 أطباق رئيسية', 'مقبلات', 'حلويات']
+            }
+        ];
+
+        // Active filters
+        let activeFilters = {
+            servingSize: '',
+            mealType: []
+        };
+
+        // Current displayed meals
+        let displayedMeals = 6;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMeals();
+            initAnimations();
+        });
+
+        // Render meals based on current filters
+        function renderMeals() {
+            const container = document.getElementById('meals-container');
+            const searchTerm = document.getElementById('meal-search').value.toLowerCase();
+            const servingFilter = document.getElementById('serving-filter').value;
+            
+            // Filter meals
+            let filteredMeals = mealsData.filter(meal => {
+                // Search filter
+                const matchesSearch = meal.name.toLowerCase().includes(searchTerm) || 
+                                     meal.description.toLowerCase().includes(searchTerm) ||
+                                     meal.ingredients.some(ing => ing.toLowerCase().includes(searchTerm));
+                
+                // Serving size filter
+                const matchesServing = !servingFilter || meal.servingSize === servingFilter;
+                
+                // Meal type filter
+                const matchesMealType = activeFilters.mealType.length === 0 || 
+                    activeFilters.mealType.includes(meal.mealType);
+                
+                return matchesSearch && matchesServing && matchesMealType;
+            });
+            
+            // Sort meals
+            const sortBy = document.getElementById('sort-by').value;
+            filteredMeals.sort((a, b) => {
+                if (sortBy === 'servings') return b.servings - a.servings;
+                if (sortBy === 'price') return a.price - b.price;
+                if (sortBy === 'value') return (b.servings / b.price) - (a.servings / a.price);
+                if (sortBy === 'rating') return b.rating - a.rating;
+                return 0;
+            });
+            
+            // Update results count
+            document.getElementById('results-count').textContent = `عرض ${Math.min(displayedMeals, filteredMeals.length)} من ${filteredMeals.length} وجبة`;
+            
+            // Render meals
+            container.innerHTML = '';
+            const mealsToShow = filteredMeals.slice(0, displayedMeals);
+            
+            mealsToShow.forEach(meal => {
+                const mealCard = createMealCard(meal);
+                container.appendChild(mealCard);
+            });
+            
+            // Add animation to new cards
+            setTimeout(() => {
+                const cards = container.querySelectorAll('.meal-card');
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('animate-in');
+                    }, index * 100);
+                });
+            }, 50);
+        }
+
+        // Create meal card HTML
+        function createMealCard(meal) {
+            const card = document.createElement('div');
+            card.className = 'meal-card bg-white rounded-xl shadow-lg overflow-hidden hover-lift';
+            
+            card.innerHTML = `
+                <div class="relative">
+                    <img src="${meal.image}" alt="${meal.name}" class="w-full h-48 object-cover">
+                    ${meal.popular ? '<div class="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">الأكثر طلباً</div>' : ''}
+                    <div class="absolute top-4 right-4 serving-size">${meal.servings}+ أشخاص</div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-text-dark">${meal.name}</h3>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <span class="text-yellow-500 ml-1">★</span>
+                            <span>${meal.rating}</span>
+                            <span class="mr-1">(${meal.reviews})</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 text-sm mb-4">${meal.description}</p>
+                    
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="prep-time-badge">⏱️ ${meal.prepTime} دقيقة</span>
+                            <span class="family-badge">${getMealTypeText(meal.mealType)}</span>
+                        </div>
+                        <div class="text-text-dark font-bold">${meal.price} دينار</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="text-sm text-gray-500 mb-1">تشمل:</div>
+                        <div class="flex flex-wrap gap-1">
+                            ${meal.includes.map(item => `<span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs">${item}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="text-sm text-gray-500 mb-1">المكونات الرئيسية:</div>
+                        <div class="flex flex-wrap gap-1">
+                            ${meal.ingredients.slice(0, 3).map(ing => `<span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs">${ing}</span>`).join('')}
+                            ${meal.ingredients.length > 3 ? `<span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs">+${meal.ingredients.length - 3}</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <div>مناسبة لـ ${meal.servingSize} أشخاص</div>
+                        <div>الطباخة: ${meal.chef}</div>
+                    </div>
+                    
+                    <div class="mt-6 flex space-x-4">
+                        <button onclick="addToCart('${meal.id}')" 
+                                class="flex-1 bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium text-center">
+                            أضف إلى السلة
+                        </button>
+                        <button onclick="viewMealDetails('${meal.id}')" 
+                                class="flex-1 border border-orange-500 text-orange-500 py-2 rounded-lg hover:bg-orange-500 hover:text-white transition-colors font-medium text-center">
+                            التفاصيل
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Get meal type text in Arabic
+        function getMealTypeText(mealType) {
+            const mealTypeMap = {
+                'complete': 'وجبة كاملة',
+                'main': 'طبق رئيسي',
+                'party': 'مناسبات'
+            };
+            return mealTypeMap[mealType] || mealType;
+        }
+
+        // Toggle filter active state
+        function toggleFilter(button, filterType) {
+            const value = button.getAttribute('data-value');
+            
+            if (button.classList.contains('active')) {
+                button.classList.remove('active');
+                activeFilters[filterType] = activeFilters[filterType].filter(item => item !== value);
+            } else {
+                button.classList.add('active');
+                activeFilters[filterType].push(value);
+            }
+            
+            // Reset displayed meals count and render
+            displayedMeals = 6;
+            renderMeals();
+        }
+
+        // Filter meals based on search and filters
+        function filterMeals() {
+            displayedMeals = 6;
+            renderMeals();
+        }
+
+        // Sort meals
+        function sortMeals(sortBy) {
+            renderMeals();
+        }
+
+        // Load more meals
+        function loadMoreMeals() {
+            displayedMeals += 6;
+            renderMeals();
+        }
+
+        // Add to cart function
+        function addToCart(mealId) {
+            // Find the meal
+            const meal = mealsData.find(m => m.id === mealId);
+            
+            // Show success message
+            alert(`تمت إضافة ${meal.name} إلى سلة التسوق`);
+            
+            // In a real app, you would add to cart logic here
+            console.log(`Added ${meal.name} to cart`);
+        }
+
+        // View meal details
+        function viewMealDetails(mealId) {
+            // In a real app, you would navigate to meal details page
+            alert(`سيتم عرض تفاصيل الوجبة ${mealId}`);
+        }
+
+        // Initialize animations
+        function initAnimations() {
+            // Animate on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

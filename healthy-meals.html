@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأطباق الصحية - طبخة</title>
+    <meta name="description" content="وجبات صحية متوازنة غنية بالعناصر الغذائية، مثالية للدايت والحفاظ على نمط حياة صحي مع طبخة">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'warm-beige': '#F5F1E8',
+                        'olive-green': '#8B9A7A',
+                        'warm-orange': '#E8A87C',
+                        'text-dark': '#2C2C2C'
+                    },
+                    fontFamily: {
+                        'arabic': ['Cairo', 'sans-serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #F5F1E8;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #E8A87C, #8B9A7A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .meal-card:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        
+        .filter-tag.active {
+            background-color: #E8A87C;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .prep-time-badge {
+            background: linear-gradient(135deg, #E8A87C, #F3A712);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(232, 168, 124, 0.3);
+        }
+        
+        .nutrition-badge {
+            background-color: #10B981;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .calorie-count {
+            background: linear-gradient(135deg, #8B9A7A, #10B981);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-warm-beige text-text-dark">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-gradient">طبخة</div>
+                    <span class="text-sm text-gray-600 mr-2 hidden sm:block">| وجبات منزلية</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-warm-orange transition-colors">الرئيسية</a>
+                    <a href="subscriptions.html" class="text-gray-700 hover:text-warm-orange transition-colors">الاشتراكات</a>
+                    <a href="chefs.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات</a>
+                    <a href="wjbatnsfm.html" class="text-gray-700 hover:text-warm-orange transition-colors">نصف مجهزة</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-warm-orange transition-colors flex items-center">
+                            الأطباق
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <a href="traditional-meals.html" class="block px-4 py-2 text-gray-700 hover:text-warm-orange hover:bg-orange-50">الأطباق التقليدية</a>
+                            <a href="healthy-meals.html" class="block px-4 py-2 text-warm-orange font-medium bg-orange-50">الأطباق الصحية</a>
+                            <a href="international-meals.html" class="block px-4 py-2 text-gray-700 hover:text-warm-orange hover:bg-orange-50">الأطباق العالمية</a>
+                            <a href="family-meals.html" class="block px-4 py-2 text-gray-700 hover:text-warm-orange hover:bg-orange-50">وجبات العائلة</a>
+                            <a href="desserts.html" class="block px-4 py-2 text-gray-700 hover:text-warm-orange hover:bg-orange-50">الحلويات</a>
+                        </div>
+                    </div>
+                    <a href="index.html#contact" class="text-gray-700 hover:text-warm-orange transition-colors">تواصل معنا</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-warm-orange">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.html" class="text-gray-700 hover:text-warm-orange transition-colors">الرئيسية</a>
+                    <a href="subscriptions.html" class="text-gray-700 hover:text-warm-orange transition-colors">الاشتراكات</a>
+                    <a href="chefs.html" class="text-gray-700 hover:text-warm-orange transition-colors">الطباخات</a>
+                    <a href="wjbatnsfm.html" class="text-gray-700 hover:text-warm-orange transition-colors">نصف مجهزة</a>
+                    <div class="border-t border-gray-200 pt-3">
+                        <p class="font-medium text-text-dark mb-2">الأطباق</p>
+                        <a href="traditional-meals.html" class="block py-2 text-gray-700 hover:text-warm-orange">الأطباق التقليدية</a>
+                        <a href="healthy-meals.html" class="block py-2 text-warm-orange font-medium">الأطباق الصحية</a>
+                        <a href="international-meals.html" class="block py-2 text-gray-700 hover:text-warm-orange">الأطباق العالمية</a>
+                        <a href="family-meals.html" class="block py-2 text-gray-700 hover:text-warm-orange">وجبات العائلة</a>
+                        <a href="desserts.html" class="block py-2 text-gray-700 hover:text-warm-orange">الحلويات</a>
+                    </div>
+                    <a href="index.html#contact" class="text-gray-700 hover:text-warm-orange transition-colors">تواصل معنا</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-24 pb-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center animate-on-scroll">
+                <h1 class="text-4xl md:text-5xl font-bold text-text-dark mb-4">الأطباق الصحية</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    وجبات متوازنة غنية بالعناصر الغذائية، مثالية للدايت والحفاظ على نمط حياة صحي
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Benefits Section -->
+    <section class="py-12 bg-gradient-to-br from-green-50 to-cyan-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center animate-on-scroll">
+                <div>
+                    <h2 class="text-3xl font-bold text-text-dark mb-6">صحتك تبدأ من طبقك</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        نقدم لكِ وجبات صحية متوازنة تم إعدادها بخبرة وباستخدام أفضل المكونات الطازجة. 
+                        كل وجبة محسوبة السعرات الحرارية وغنية بالعناصر الغذائية الأساسية لتحافظي على صحتك ورشاقتك.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <span class="text-green-500 text-xl ml-2">✓</span>
+                            <span class="text-gray-700">سعرات حرارية محسوبة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-green-500 text-xl ml-2">✓</span>
+                            <span class="text-gray-700">بروتين عالي الجودة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-green-500 text-xl ml-2">✓</span>
+                            <span class="text-gray-700">خضار طازجة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-green-500 text-xl ml-2">✓</span>
+                            <span class="text-gray-700">دهون صحية</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" 
+                         alt="الوجبات الصحية" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="py-8 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-green-50 rounded-xl p-6 shadow-lg animate-on-scroll">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Search -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-text-dark mb-2 flex items-center">
+                            <span class="text-lg mr-2">🔍</span>
+                            البحث عن طبق صحي
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="meal-search" placeholder="ابحث بالاسم أو المكونات..." 
+                                   class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 transition-colors hover-lift"
+                                   onkeyup="filterMeals()">
+                            <svg class="absolute left-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Calorie Filter -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-dark mb-2 flex items-center">
+                            <span class="text-lg mr-2">🔥</span>
+                            السعرات الحرارية
+                        </label>
+                        <select id="calorie-filter" onchange="filterMeals()" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 transition-colors hover-lift">
+                            <option value="">جميع السعرات</option>
+                            <option value="low">منخفضة (أقل من 300)</option>
+                            <option value="medium">متوسطة (300-500)</option>
+                            <option value="high">عالية (أكثر من 500)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Diet Type Filters -->
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-text-dark mb-3 flex items-center">
+                        <span class="text-lg mr-2">🥗</span>
+                        نوع النظام الغذائي
+                    </label>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="toggleFilter(this, 'dietType')" data-value="vegetarian" 
+                                class="filter-tag px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-green-500 hover:text-white transition-colors text-sm hover-lift">
+                            نباتي
+                        </button>
+                        <button onclick="toggleFilter(this, 'dietType')" data-value="low-carb" 
+                                class="filter-tag px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-green-500 hover:text-white transition-colors text-sm hover-lift">
+                            قليل الكربوهيدرات
+                        </button>
+                        <button onclick="toggleFilter(this, 'dietType')" data-value="high-protein" 
+                                class="filter-tag px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-green-500 hover:text-white transition-colors text-sm hover-lift">
+                            عالي البروتين
+                        </button>
+                        <button onclick="toggleFilter(this, 'dietType')" data-value="gluten-free" 
+                                class="filter-tag px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-green-500 hover:text-white transition-colors text-sm hover-lift">
+                            خالي من الغلوتين
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meals Grid -->
+    <section id="meals-grid" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8 animate-on-scroll">
+                <div>
+                    <h2 class="text-2xl font-bold text-text-dark">الوجبات الصحية</h2>
+                    <p class="text-gray-600" id="results-count">عرض 8 من 24 وجبة</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <label class="text-sm font-medium text-text-dark">الترتيب حسب:</label>
+                    <select id="sort-by" onchange="sortMeals(this.value)" 
+                            class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 transition-colors hover-lift">
+                        <option value="calories">السعرات الحرارية</option>
+                        <option value="protein">محتوى البروتين</option>
+                        <option value="price">السعر</option>
+                        <option value="rating">التقييم</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="meals-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Meal cards will be populated by JavaScript -->
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="text-center mt-12 animate-on-scroll">
+                <button onclick="loadMoreMeals()" 
+                        class="bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-600 transition-colors font-medium pulse-glow hover-lift">
+                    عرض المزيد من الوجبات
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutrition Info Section -->
+    <section class="py-16 bg-gradient-to-br from-green-50 to-cyan-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-on-scroll">
+                <h2 class="text-3xl font-bold text-text-dark mb-4">فوائد الوجبات الصحية</h2>
+                <p class="text-lg text-gray-600">
+                    لماذا تختاري وجباتنا الصحية؟
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-xl p-6 text-center hover-lift animate-on-scroll">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        ⚖️
+                    </div>
+                    <h3 class="text-xl font-bold text-text-dark mb-2">تحكم في الوزن</h3>
+                    <p class="text-gray-600 text-sm">سعرات حرارية محسوبة تساعد في الحفاظ على الوزن المثالي</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center hover-lift animate-on-scroll">
+                    <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        💪
+                    </div>
+                    <h3 class="text-xl font-bold text-text-dark mb-2">طاقة مستدامة</h3>
+                    <p class="text-gray-600 text-sm">مغذيات متوازنة تمدك بالطاقة طوال اليوم</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center hover-lift animate-on-scroll">
+                    <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        🧠
+                    </div>
+                    <h3 class="text-xl font-bold text-text-dark mb-2">صحة الدماغ</h3>
+                    <p class="text-gray-600 text-sm">أوميغا 3 ومضادات الأكسدة لتعزيز الوظائف الدماغية</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center hover-lift animate-on-scroll">
+                    <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+                        ❤️
+                    </div>
+                    <h3 class="text-xl font-bold text-text-dark mb-2">صحة القلب</h3>
+                    <p class="text-gray-600 text-sm">دهون صحية وألياف لتحسين صحة القلب والشرايين</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-3xl font-bold text-gradient mb-4">طبخة</div>
+                <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+                    منصة طبخة - ربط النساء العاملات بأفضل الطباخات المنزليات للحصول على وجبات منزلية لذيذة وصحية
+                </p>
+                <div class="border-t border-gray-600 pt-6">
+                    <p class="text-gray-400">
+                        © 2025 طبخة. جميع الحقوق محفوظة | مصمم بكل حب للنساء الجزائريات
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Healthy Meals Data
+        const mealsData = [
+            {
+                id: 'grilled-salmon',
+                name: 'سلمون مشوي',
+                category: 'healthy',
+                image: 'resources/grilled-salmon.jpg',
+                price: 45,
+                prepTime: 12,
+                difficulty: 'easy',
+                rating: 4.7,
+                reviews: 67,
+                description: 'شرائح سلمون مشوية مع تتبيلة خاصة. غني بأوميغا 3 وصحي.',
+                ingredients: ['سلمون', 'ليمون', 'أعشاب', 'زيت زيتون', 'ثوم', 'بهارات'],
+                storage: '3 أشهر في الفريزر',
+                servings: 2,
+                popular: false,
+                chef: 'سارة خالد',
+                calories: 320,
+                protein: 25,
+                carbs: 8,
+                fat: 22,
+                dietType: ['high-protein', 'gluten-free']
+            },
+            {
+                id: 'quinoa-bowl',
+                name: 'سلطة كينوا',
+                category: 'healthy',
+                image: 'resources/quinoa-bowl.jpg',
+                price: 20,
+                prepTime: 5,
+                difficulty: 'easy',
+                rating: 4.4,
+                reviews: 38,
+                description: 'سلطة كينوا مع خضار طازجة وتتبيلة خاصة. وجبة خفيفة وصحية.',
+                ingredients: ['كينوا', 'خضار طازجة', 'زيت زيتون', 'ليمون', 'أعشاب', 'بهارات'],
+                storage: '5 أيام في الثلاجة',
+                servings: 2,
+                popular: false,
+                chef: 'ريماس فهد',
+                calories: 280,
+                protein: 12,
+                carbs: 35,
+                fat: 10,
+                dietType: ['vegetarian', 'gluten-free']
+            },
+            {
+                id: 'vegetable-curry',
+                name: 'كاري الخضار',
+                category: 'healthy',
+                image: 'resources/vegetable-curry.jpg',
+                price: 18,
+                prepTime: 8,
+                difficulty: 'easy',
+                rating: 4.5,
+                reviews: 42,
+                description: 'خضار مشكلة مع صلصة كاري لذيذة. وجبة نباتية صحية.',
+                ingredients: ['خضار مشكلة', 'حليب جوز الهند', 'بهارات الكاري', 'زيت', 'بصل', 'ثوم'],
+                storage: '2 أشهر في الفريزر',
+                servings: 3,
+                popular: false,
+                chef: 'مريم علي',
+                calories: 210,
+                protein: 8,
+                carbs: 25,
+                fat: 9,
+                dietType: ['vegetarian', 'low-carb']
+            },
+            {
+                id: 'chicken-salad',
+                name: 'سلطة الدجاج',
+                category: 'healthy',
+                image: 'resources/chicken-salad.jpg',
+                price: 22,
+                prepTime: 6,
+                difficulty: 'easy',
+                rating: 4.6,
+                reviews: 58,
+                description: 'سلطة دجاج مشوي مع خضار طازجة وتتبيلة خفيفة.',
+                ingredients: ['دجاج مشوي', 'خس', 'طماطم', 'خيار', 'زيتون', 'تتبيلة'],
+                storage: '3 أيام في الثلاجة',
+                servings: 2,
+                popular: true,
+                chef: 'نادية راشد',
+                calories: 180,
+                protein: 20,
+                carbs: 12,
+                fat: 6,
+                dietType: ['high-protein', 'low-carb']
+            },
+            {
+                id: 'fish-fillet',
+                name: 'فيليه سمك',
+                category: 'healthy',
+                image: 'resources/fish-fillet.jpg',
+                price: 28,
+                prepTime: 12,
+                difficulty: 'easy',
+                rating: 4.5,
+                reviews: 47,
+                description: 'فيليه سمك مع تتبيلة أعشاب. غني بالبروتين وقليل الدهون.',
+                ingredients: ['فيليه سمك', 'أعشاب', 'ليمون', 'زيت زيتون', 'ثوم', 'بهارات'],
+                storage: '3 أشهر في الفريزر',
+                servings: 2,
+                popular: false,
+                chef: 'سهام عبدالله',
+                calories: 190,
+                protein: 22,
+                carbs: 5,
+                fat: 9,
+                dietType: ['high-protein', 'low-carb', 'gluten-free']
+            },
+            {
+                id: 'lentil-soup',
+                name: 'شوربة عدس',
+                category: 'healthy',
+                image: 'resources/lentil-soup.jpg',
+                price: 15,
+                prepTime: 8,
+                difficulty: 'easy',
+                rating: 4.3,
+                reviews: 35,
+                description: 'شوربة عدس غنية بالبروتين والألياف. مثالية للوجبات الخفيفة.',
+                ingredients: ['عدس', 'جزر', 'بصل', 'ثوم', 'بهارات', 'زيت زيتون'],
+                storage: '2 أشهر في الفريزر',
+                servings: 3,
+                popular: false,
+                chef: 'وفاء حسن',
+                calories: 150,
+                protein: 10,
+                carbs: 20,
+                fat: 3,
+                dietType: ['vegetarian', 'high-protein']
+            }
+        ];
+
+        // Active filters
+        let activeFilters = {
+            dietType: [],
+            calories: ''
+        };
+
+        // Current displayed meals
+        let displayedMeals = 6;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMeals();
+            initAnimations();
+        });
+
+        // Render meals based on current filters
+        function renderMeals() {
+            const container = document.getElementById('meals-container');
+            const searchTerm = document.getElementById('meal-search').value.toLowerCase();
+            const calorieFilter = document.getElementById('calorie-filter').value;
+            
+            // Filter meals
+            let filteredMeals = mealsData.filter(meal => {
+                // Search filter
+                const matchesSearch = meal.name.toLowerCase().includes(searchTerm) || 
+                                     meal.description.toLowerCase().includes(searchTerm) ||
+                                     meal.ingredients.some(ing => ing.toLowerCase().includes(searchTerm));
+                
+                // Calorie filter
+                const matchesCalories = !calorieFilter || 
+                    (calorieFilter === 'low' && meal.calories < 300) ||
+                    (calorieFilter === 'medium' && meal.calories >= 300 && meal.calories <= 500) ||
+                    (calorieFilter === 'high' && meal.calories > 500);
+                
+                // Diet type filter
+                const matchesDietType = activeFilters.dietType.length === 0 || 
+                    activeFilters.dietType.some(diet => meal.dietType.includes(diet));
+                
+                return matchesSearch && matchesCalories && matchesDietType;
+            });
+            
+            // Sort meals
+            const sortBy = document.getElementById('sort-by').value;
+            filteredMeals.sort((a, b) => {
+                if (sortBy === 'calories') return a.calories - b.calories;
+                if (sortBy === 'protein') return b.protein - a.protein;
+                if (sortBy === 'price') return a.price - b.price;
+                if (sortBy === 'rating') return b.rating - a.rating;
+                return 0;
+            });
+            
+            // Update results count
+            document.getElementById('results-count').textContent = `عرض ${Math.min(displayedMeals, filteredMeals.length)} من ${filteredMeals.length} وجبة`;
+            
+            // Render meals
+            container.innerHTML = '';
+            const mealsToShow = filteredMeals.slice(0, displayedMeals);
+            
+            mealsToShow.forEach(meal => {
+                const mealCard = createMealCard(meal);
+                container.appendChild(mealCard);
+            });
+            
+            // Add animation to new cards
+            setTimeout(() => {
+                const cards = container.querySelectorAll('.meal-card');
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('animate-in');
+                    }, index * 100);
+                });
+            }, 50);
+        }
+
+        // Create meal card HTML
+        function createMealCard(meal) {
+            const card = document.createElement('div');
+            card.className = 'meal-card bg-white rounded-xl shadow-lg overflow-hidden hover-lift';
+            
+            card.innerHTML = `
+                <div class="relative">
+                    <img src="${meal.image}" alt="${meal.name}" class="w-full h-48 object-cover">
+                    ${meal.popular ? '<div class="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">الأكثر طلباً</div>' : ''}
+                    <div class="absolute top-4 right-4 calorie-count">${meal.calories} سعرة</div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-text-dark">${meal.name}</h3>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <span class="text-yellow-500 ml-1">★</span>
+                            <span>${meal.rating}</span>
+                            <span class="mr-1">(${meal.reviews})</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 text-sm mb-4">${meal.description}</p>
+                    
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="prep-time-badge">⏱️ ${meal.prepTime} دقيقة</span>
+                            <span class="nutrition-badge">🥩 ${meal.protein}g بروتين</span>
+                        </div>
+                        <div class="text-text-dark font-bold">${meal.price} دينار</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="text-sm text-gray-500 mb-1">المعلومات الغذائية:</div>
+                        <div class="flex justify-between text-xs text-gray-600">
+                            <span>الكربوهيدرات: ${meal.carbs}g</span>
+                            <span>الدهون: ${meal.fat}g</span>
+                            <span>البروتين: ${meal.protein}g</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="text-sm text-gray-500 mb-1">مناسبة ل:</div>
+                        <div class="flex flex-wrap gap-1">
+                            ${meal.dietType.map(diet => `<span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">${getDietTypeText(diet)}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <div>${meal.servings} أشخاص</div>
+                        <div>الطباخة: ${meal.chef}</div>
+                    </div>
+                    
+                    <div class="mt-6 flex space-x-4">
+                        <button onclick="addToCart('${meal.id}')" 
+                                class="flex-1 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors font-medium text-center">
+                            أضف إلى السلة
+                        </button>
+                        <button onclick="viewMealDetails('${meal.id}')" 
+                                class="flex-1 border border-green-500 text-green-500 py-2 rounded-lg hover:bg-green-500 hover:text-white transition-colors font-medium text-center">
+                            التفاصيل
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Get diet type text in Arabic
+        function getDietTypeText(dietType) {
+            const dietMap = {
+                'vegetarian': 'نباتي',
+                'low-carb': 'قليل الكربوهيدرات',
+                'high-protein': 'عالي البروتين',
+                'gluten-free': 'خالي من الغلوتين'
+            };
+            return dietMap[dietType] || dietType;
+        }
+
+        // Toggle filter active state
+        function toggleFilter(button, filterType) {
+            const value = button.getAttribute('data-value');
+            
+            if (button.classList.contains('active')) {
+                button.classList.remove('active');
+                activeFilters[filterType] = activeFilters[filterType].filter(item => item !== value);
+            } else {
+                button.classList.add('active');
+                activeFilters[filterType].push(value);
+            }
+            
+            // Reset displayed meals count and render
+            displayedMeals = 6;
+            renderMeals();
+        }
+
+        // Filter meals based on search and filters
+        function filterMeals() {
+            displayedMeals = 6;
+            renderMeals();
+        }
+
+        // Sort meals
+        function sortMeals(sortBy) {
+            renderMeals();
+        }
+
+        // Load more meals
+        function loadMoreMeals() {
+            displayedMeals += 6;
+            renderMeals();
+        }
+
+        // Add to cart function
+        function addToCart(mealId) {
+            // Find the meal
+            const meal = mealsData.find(m => m.id === mealId);
+            
+            // Show success message
+            alert(`تمت إضافة ${meal.name} إلى سلة التسوق`);
+            
+            // In a real app, you would add to cart logic here
+            console.log(`Added ${meal.name} to cart`);
+        }
+
+        // View meal details
+        function viewMealDetails(mealId) {
+            // In a real app, you would navigate to meal details page
+            alert(`سيتم عرض تفاصيل الوجبة ${mealId}`);
+        }
+
+        // Initialize animations
+        function initAnimations() {
+            // Animate on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
