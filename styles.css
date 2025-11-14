@@ -71,7 +71,7 @@ header p {
   color: #5a3e2b;
 }
 
-/* تذييل الصفحة */
+/* تذييل  */
 footer {
   text-align: center;
   padding: 1.5rem;
@@ -81,5 +81,5 @@ footer {
   font-size: 0.95rem;
 }
 
-/* دعم اللغات العربية (خط عربي جذاب) */
+/* دعم اللغات العربية () */
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
